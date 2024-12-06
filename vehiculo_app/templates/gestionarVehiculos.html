@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Registrar Vehículo</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action="{% url 'registrarVehiculo' %}" method="POST">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <input type="number" id="txtid_vehiculo" name="txtid_vehiculo" class="form-control" placeholder="ID del Vehículo" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtmarca" name="txtmarca" class="form-control" placeholder="Marca" maxlength="100" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtmodelo" name="txtmodelo" class="form-control" placeholder="Modelo" maxlength="100" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numanio" name="numanio" class="form-control" placeholder="Año" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtcolor" name="txtcolor" class="form-control" placeholder="Color" maxlength="100" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numprecio" name="numprecio" class="form-control" placeholder="Precio" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numkilometraje" name="numkilometraje" class="form-control" placeholder="Kilometraje" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+    <h1>Listado de Vehículos</h1>
+    <img src="{% static 'img/vehiculos.jpg' %}" style="width: 250px;" alt="Ejemplo de imagen">
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Año</th>
+            <th scope="col">Color</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Kilometraje</th>
+            <th scope="col">-</th>
+            <th scope="col">-</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for vehiculo in misvehiculos %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ vehiculo.id_vehiculo }}</td>
+            <td>{{ vehiculo.marca }}</td>
+            <td>{{ vehiculo.modelo }}</td>
+            <td>{{ vehiculo.anio }}</td>
+            <td>{{ vehiculo.color }}</td>
+            <td>{{ vehiculo.precio }}</td>
+            <td>{{ vehiculo.kilometraje }}</td>
+            <td><a href="seleccionarVehiculo/{{ vehiculo.id_vehiculo }}" class="btn btn-success">Editar</a></td>
+            <td><a href="borrarVehiculo/{{ vehiculo.id_vehiculo }}" class="btn btn-danger">Borrar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}
