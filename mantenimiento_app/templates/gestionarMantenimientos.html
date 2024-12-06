@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Registrar Mantenimiento</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action="{% url 'registrarMantenimiento' %}" method="POST">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <input type="number" id="txtid_mantenimiento" name="txtid_mantenimiento" class="form-control" placeholder="ID del Mantenimiento" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="date" id="datefecha" name="datefecha" class="form-control" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtdescripcion" name="txtdescripcion" class="form-control" placeholder="Descripción" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numcosto" name="numcosto" class="form-control" placeholder="Costo" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_vehiculo" name="numid_vehiculo" class="form-control" placeholder="ID Vehículo" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_empleado" name="numid_empleado" class="form-control" placeholder="ID Empleado" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txttipo_mantenimiento" name="txttipo_mantenimiento" class="form-control" placeholder="Tipo de Mantenimiento" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+  <h1>Listado de Mantenimientos</h1>
+  <img src="{% static 'img/mantenimientos.jpg' %}" style="width: 250px;" alt="Imagen de Mantenimientos">
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ID</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Costo</th>
+          <th scope="col">ID Vehículo</th>
+          <th scope="col">ID Empleado</th>
+          <th scope="col">Tipo de Mantenimiento</th>
+          <th scope="col">-</th>
+          <th scope="col">-</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mantenimiento in mismantenimientos %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ mantenimiento.id_mantenimiento }}</td>
+          <td>{{ mantenimiento.fecha }}</td>
+          <td>{{ mantenimiento.descripcion }}</td>
+          <td>{{ mantenimiento.costo }}</td>
+          <td>{{ mantenimiento.id_vehiculo }}</td>
+          <td>{{ mantenimiento.id_empleado }}</td>
+          <td>{{ mantenimiento.tipo_mantenimiento }}</td>
+         
+          <td><a href="seleccionarMantenimiento/{{ mantenimiento.id_mantenimiento }}" class="btn btn-success">Editar</a></td>
+          <td><a href="borrarMantenimiento/{{ mantenimiento.id_mantenimiento }}" class="btn btn-danger">Borrar</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
