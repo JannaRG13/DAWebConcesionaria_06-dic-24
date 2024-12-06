@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Registrar Cliente</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action="{% url 'registrarCliente' %}" method="POST">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <input type="number" id="txtid_cliente" name="txtid_cliente" class="form-control" placeholder="ID del Cliente" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtapellido" name="txtapellido" class="form-control" placeholder="Apellido" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="numcurp" name="numcurp" class="form-control" placeholder="CURP" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtdireccion" name="txtdireccion" class="form-control" placeholder="Dirección" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numtelefono" name="numtelefono" class="form-control" placeholder="Teléfono" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="date" id="datefecha_nacimiento" name="datefecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+    <h1>Listado de Clientes</h1>
+    <img src="{% static 'img/clientes.jpg' %}" style="width: 250px;" alt="Ejemplo de imagen">
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">CURP</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">-</th>
+            <th scope="col">-</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cliente in misclientes %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ cliente.id_cliente }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.curp }}</td>
+            <td>{{ cliente.direccion }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>{{ cliente.fecha_nacimiento}}</td>
+            <td><a href="seleccionarCliente/{{ cliente.id_cliente }}" class="btn btn-success">Editar</a></td>
+            <td><a href="borrarCliente/{{ cliente.id_cliente }}" class="btn btn-danger">Borrar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}
