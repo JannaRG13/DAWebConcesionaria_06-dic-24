@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Registrar Empleado</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action="{% url 'registrarEmpleado' %}" method="POST">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <input type="number" id="txtid_empleado" name="txtid_empleado" class="form-control" placeholder="ID del Empleado" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtapellido" name="txtapellido" class="form-control" placeholder="Apellido" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="numcurp" name="numcurp" class="form-control" placeholder="CURP" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtcargo" name="txtcargo" class="form-control" placeholder="Cargo" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numsueldo" name="numsueldo" class="form-control" placeholder="Sueldo" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="date" id="datefecha_ingreso" name="datefecha_ingreso" class="form-control" placeholder="Fecha de Ingreso" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+    <h1>Listado de Empleados</h1>
+    <img src="{% static 'img/empleados.jpg' %}" style="width: 250px;" alt="Ejemplo de imagen">
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">CURP</th>
+            <th scope="col">Cargo</th>
+            <th scope="col">Sueldo</th>
+            <th scope="col">Fecha de Ingreso</th>
+            <th scope="col">-</th>
+            <th scope="col">-</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for empleado in misempleados %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ empleado.id_empleado }}</td>
+            <td>{{ empleado.nombre }}</td>
+            <td>{{ empleado.apellido }}</td>
+            <td>{{ empleado.curp }}</td>
+            <td>{{ empleado.cargo }}</td>
+            <td>{{ empleado.sueldo }}</td>
+            <td>{{ empleado.fecha_ingreso }}</td>
+            <td><a href="seleccionarEmpleado/{{ empleado.id_empleado }}" class="btn btn-success">Editar</a></td>
+            <td><a href="borrarEmpleado/{{ empleado.id_empleado }}" class="btn btn-danger">Borrar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
