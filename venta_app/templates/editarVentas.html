@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Editar Venta</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action="{% url 'editarVenta' %}" method="POST">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <input type="number" id="txtid_venta" name="txtid_venta" class="form-control" value="{{ misventas.id_venta }}" readonly required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="date" id="datefecha" name="datefecha" class="form-control" value="{{ misventas.fecha|date:'Y-m-d' }}" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numprecio" name="numprecio" class="form-control" value="{{ misventas.precio }}" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtforma_pago" name="txtforma_pago" class="form-control" value="{{ misventas.forma_pago }}" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_vehiculo" name="numid_vehiculo" class="form-control" value="{{ misventas.id_vehiculo }}" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_cliente" name="numid_cliente" class="form-control" value="{{ misventas.id_cliente }}" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_empleado" name="numid_empleado" class="form-control" value="{{ misventas.id_empleado }}" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

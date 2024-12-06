@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Registrar Venta</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action="{% url 'registrarVenta' %}" method="POST">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <input type="number" id="txtid_venta" name="txtid_venta" class="form-control" placeholder="ID de la Venta" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="date" id="datefecha" name="datefecha" class="form-control" placeholder="Fecha de Venta" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numprecio" name="numprecio" class="form-control" placeholder="Precio" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtforma_pago" name="txtforma_pago" class="form-control" placeholder="Forma de Pago" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_vehiculo" name="numid_vehiculo" class="form-control" placeholder="ID Vehículo" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_cliente" name="numid_cliente" class="form-control" placeholder="ID Cliente" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numid_empleado" name="numid_empleado" class="form-control" placeholder="ID Empleado" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+    <h1>Listado de Ventas</h1>
+    <img src="{% static 'img/ventas.jpg' %}" style="width: 250px;" alt="Ejemplo de imagen">
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Forma de Pago</th>
+            <th scope="col">ID Vehículo</th>
+            <th scope="col">ID Cliente</th>
+            <th scope="col">ID Empleado</th>
+            <th scope="col">-</th>
+            <th scope="col">-</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for venta in misventas %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ venta.id_venta }}</td>
+            <td>{{ venta.fecha }}</td>
+            <td>{{ venta.precio }}</td>
+            <td>{{ venta.forma_pago }}</td>
+            <td>{{ venta.id_vehiculo }}</td>
+            <td>{{ venta.id_cliente }}</td>
+            <td>{{ venta.id_empleado }}</td>
+            <td><a href="seleccionarVenta/{{ venta.id_venta }}" class="btn btn-success">Editar</a></td>
+            <td><a href="borrarVenta/{{ venta.id_venta }}" class="btn btn-danger">Borrar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}
