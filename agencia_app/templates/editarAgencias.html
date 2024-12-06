@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Editar Agencia</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action='/editarAgencia/' method="POST">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <input type="number" id="txtid_agencia" name="txtid_agencia" class="form-control" value="{{ misagencias.id_agencia }}" readonly required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtnombre" name="txtnombre" class="form-control" value="{{ misagencias.nombre }}" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtdireccion" name="txtdireccion" class="form-control" value="{{ misagencias.direccion }}" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numtelefono" name="numtelefono" class="form-control" value="{{ misagencias.telefono }}" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtemail" name="txtemail" class="form-control" value="{{ misagencias.email }}" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtsucursal" name="txtsucursal" class="form-control" value="{{ misagencias.sucursal }}" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txthorario" name="txthorario" class="form-control" value="{{ misagencias.horario }}" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <h1>Registrar Agencia</h1>
+    <div class="card">
+      <div class="card-body">
+        <form action='/registrarAgencia/' method="POST">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <input type="number" id="txtid_agencia" name="txtid_agencia" class="form-control" placeholder="ID de la Agencia" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtdireccion" name="txtdireccion" class="form-control" placeholder="Dirección" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="number" id="numtelefono" name="numtelefono" class="form-control" placeholder="Teléfono" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtemail" name="txtemail" class="form-control" placeholder="Correo Electrónico" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txtsucursal" name="txtsucursal" class="form-control" placeholder="Sucursal" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-3">
+            <input type="text" id="txthorario" name="txthorario" class="form-control" placeholder="Horario" maxlength="255" required>
+          </div>
+
+          <div class="form-group py-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+    <h1>Listado de Agencias</h1>
+    <img src="{% static 'img/agencias.jpg' %}" style="width: 200px;" alt="Ejemplo de imagen">
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID Agencia</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Email</th>
+            <th scope="col">Sucursal</th>
+            <th scope="col">Horario</th>
+            <th scope="col">-</th>
+            <th scope="col">-</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for agencia in misagencias %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ agencia.id_agencia }}</td>
+            <td>{{ agencia.nombre }}</td>
+            <td>{{ agencia.direccion }}</td>
+            <td>{{ agencia.telefono }}</td>
+            <td>{{ agencia.email }}</td>
+            <td>{{ agencia.sucursal }}</td>
+            <td>{{ agencia.horario }}</td>
+            <td><a href="seleccionarAgencia/{{ agencia.id_agencia }}" class="btn btn-success">Editar</a></td>
+            <td><a href="borrarAgencia/{{ agencia.id_agencia }}" class="btn btn-danger">Borrar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
